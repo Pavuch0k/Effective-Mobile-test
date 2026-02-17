@@ -1,14 +1,22 @@
 services:
   backend:
     build: ./backend
-    ports:
-      - "8080:8080"
+    container_name: backend
+    networks:
+      - app-network
     restart: unless-stopped
 
   nginx:
     build: ./nginx
+    container_name: nginx
     ports:
       - "80:80"
+    networks:
+      - app-network
     depends_on:
       - backend
     restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
