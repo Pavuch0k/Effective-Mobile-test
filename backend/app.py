@@ -8,6 +8,11 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain; charset=utf-8')
             self.end_headers()
             self.wfile.write(b'Hello from Effective Mobile!')
+        elif self.path == '/health':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(b'{"status":"healthy"}')
         else:
             self.send_error(404)
 
